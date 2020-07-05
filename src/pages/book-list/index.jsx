@@ -1,8 +1,8 @@
-import Taro, { Component } from "@tarojs/taro";
+import Taro, { Component, useReachBottom } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtMessage, AtNoticebar } from "taro-ui";
 import { connect } from "@tarojs/redux";
-import { disfavorBookById } from "../../store/home/action";
+import { disfavorBookById, getHotBooks, getNewBooks, getRecommendBooks } from "../../store/home/action";
 import BookCard from "../../components/book-card";
 
 import "./index.scss";
@@ -10,11 +10,17 @@ import "./index.scss";
 @connect(
   ({ home }) => ({
     newBooks: home.newBooks,
+    newNext: home.newNext,
     hotBooks: home.hotBooks,
-    recommendBooks: home.recommendBooks
+    hotNext: home.hotNext,
+    recommendBooks: home.recommendBooks,
+    recommendNext: home.recommendNext
   }),
   {
-    dispatchDisfavorBook: disfavorBookById
+    dispatchDisfavorBook: disfavorBookById,
+    dispatchGetNewBooks: getNewBooks,
+    dispatchGetHotBooks: getHotBooks,
+    dispatchGetRecommendBooks: getRecommendBooks
   }
 )
 export default class BookList extends Component {
@@ -71,14 +77,25 @@ export default class BookList extends Component {
         data = this.props.recommendBooks;
         break;
     }
+    useReachBottom(() => {
+      if (this.$router.params.type === 'new'){
+        this.props.dispatchGetNewBooks(this.props.newNext);
+      }
+      if (this.$router.params.type === 'hot'){
+        this.props.dispatchGetHotBooks(this.props.hotNext);
+      }
+      if (this.$router.params.type === 'recommend'){
+        this.props.dispatchGetRecommendBooks(this.props.recommendNext);
+      }
+    })
     return (
       <View>
-        <AtMessage />
+        {/* <AtMessage />
         {this.state.isShowNoticebar && (
           <AtNoticebar close onClose={this.onCloseNoticebar}>
             长按标记不感兴趣的图书
           </AtNoticebar>
-        )}
+        )} */}
         {data.map(item => (
           <BookCard data={item} key={item.id} onLongPress={this.onLongPress} />
         ))}

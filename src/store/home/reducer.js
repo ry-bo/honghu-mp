@@ -38,11 +38,11 @@ const home = (state = defaultState, action) => {
     case HOME.GET_NEW_BOOK:
       return { ...state, newBooks: state.newBooks.concat(action.books), newNext: action.next};
     case HOME.GET_HOT_BOOK:
-      return { ...state, hotBooks: state.hotBooks.concat(action.books) };
+      return { ...state, hotBooks: state.hotBooks.concat(action.books), hotNext: action.next };
     case HOME.GET_RECOMMEND_BOOK:
       return {
         ...state,
-        recommendBooks: state.recommendBooks.concat(action.books)
+        recommendBooks: state.recommendBooks.concat(action.books), recommendNext: action.next
       };
     case HOME.DISFAVOR:
       switch (action.bookType) {

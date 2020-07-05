@@ -11,10 +11,10 @@ export const disfavorBookById = (id, bookType) => {
 };
 
 // 新书上架
-export const getNewBooks = () => {
+export const getNewBooks = (url) => {
   // 返回函数，异步dispatch
   return async dispatch => {
-    const result = await API.get("new");
+    const result = await API.get(url);
     dispatch({
       type: HOME.GET_NEW_BOOK,
       next: result.next,
@@ -24,10 +24,10 @@ export const getNewBooks = () => {
 };
 
 // 热门图书
-export const getHotBooks = () => {
+export const getHotBooks = (url) => {
   // 返回函数，异步dispatch
   return async dispatch => {
-    const result = await API.get("hot");
+    const result = await API.get(url);
     dispatch({
       type: HOME.GET_HOT_BOOK,
       next: result.next,
@@ -37,10 +37,10 @@ export const getHotBooks = () => {
 };
 
 // 推荐图书
-export const getRecommendBooks = () => {
+export const getRecommendBooks = (url) => {
   // 返回函数，异步dispatch
   return async dispatch => {
-    const result = await API.get("recommend");
+    const result = await API.get(url);
     dispatch({
       type: HOME.GET_RECOMMEND_BOOK,
       next: result.next,

@@ -43,9 +43,9 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatchGetNewBooks();
-    this.props.dispatchGetHotBooks();
-    this.props.dispatchGetRecommendBooks();
+    this.props.dispatchGetNewBooks('new');
+    this.props.dispatchGetHotBooks('hot');
+    this.props.dispatchGetRecommendBooks('recommend');
   }
 
   onClickSearchBar() {
